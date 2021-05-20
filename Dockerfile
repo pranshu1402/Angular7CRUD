@@ -16,8 +16,10 @@ RUN npm install
 # Get all the code needed to run the app
 COPY . /app/
 
-# Expose the port the app runs in
-EXPOSE 4200
-
 # Serve the app
-CMD ["npm", "start"]
+RUN npm run build
+
+# Serve the build content using nginx
+# FROM nginx:1.17.1-alpine
+# COPY nginx.conf /etc/nginx/nginx.conf
+# COPY --from=build /app/dist/webapp /usr/share/nginx/html
