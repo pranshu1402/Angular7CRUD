@@ -1,4 +1,4 @@
-version: '1' # specify docker-compose version
+version: '1.1' # specify docker-compose version
 
 # Define the services/containers to be run
 services:
@@ -18,5 +18,5 @@ services:
     build: ./ # specify the directory of the Dockerfile
     ports:
       - "4200:4200" # specify port forewarding
-    volumes:
-      - ./:/app # this will enable changes made to the angular app reflect in the container
+#     volumes:
+#       - ./:/app # this will enable changes made to the angular app reflect in the container
