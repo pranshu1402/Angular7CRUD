@@ -1,13 +1,19 @@
-version: '1' # specify docker-compose version
+version: '3.1' # specify docker-compose version
 
 # Define the services/containers to be run
 services:
-  database: # name of the third service
+  mongo-database: # name of the third service
+    container_name: dbContainer
     image: mongo # specify image to build container from
+    environment:
+      - MONGO_INITDB_DATABASE=angular7crud
     ports:
-      - "27017:27017" # specify port forewarding
+      - "27117:27017" # specify port forewarding
+    volumes:
+      - ./mongo-volume:/data/db
 
   express: #name of the second service
+    container_name: backendContainer
     build: api # specify the directory of the Dockerfile
     ports:
       - "3000:3000" #specify ports forewarding
@@ -15,8 +21,7 @@ services:
       - database
 
   angular: # name of the first service
+    container_name: clientContainer
     build: ./ # specify the directory of the Dockerfile
     ports:
       - "4200:4200" # specify port forewarding
-    volumes:
-      - ./:/app # this will enable changes made to the angular app reflect in the container
