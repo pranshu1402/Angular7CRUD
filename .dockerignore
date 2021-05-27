@@ -1,3 +1,6 @@
 api/
+e2e/
 node_modules/
+
 README.md
+.gitignore

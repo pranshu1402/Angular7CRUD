@@ -3,12 +3,11 @@ version: '3.1' # specify docker-compose version
 # Define the services/containers to be run
 services:
   mongo-database: # name of the third service
-    container_name: dbContainer
     image: mongo # specify image to build container from
     environment:
       - MONGO_INITDB_DATABASE=angular7crud
     ports:
-      - "27117:27017" # specify port forewarding
+      - "27017:27017" # specify port forewarding
     volumes:
       - ./mongo-volume:/data/db
 
@@ -24,5 +23,9 @@ services:
     container_name: clientContainer
     build: ./ # specify the directory of the Dockerfile
     ports:
-      - "4200:4200" # specify port forewarding
+      - "4200:80" # specify port forewarding
+
+  nginx:
+	build: ./nginx
+	ports: "80:80"
 
