@@ -8,8 +8,8 @@ services:
       - MONGO_INITDB_DATABASE=angular7crud
     ports:
       - "27017:27017" # specify port forewarding
-    volumes:
-      - ./mongo-volume:/data/db
+    #volumes:
+    #  - ./mongo-volume:/data/db
 
   express: #name of the second service
     container_name: backendContainer
@@ -26,6 +26,11 @@ services:
       - "4200:80" # specify port forewarding
 
   nginx:
-	build: ./nginx
-	ports: "80:80"
+    container_name: nginxContainer
+    build: ./nginx
+    ports:
+      - "80:80"
+    links:
+      - angular
+      - express
 
