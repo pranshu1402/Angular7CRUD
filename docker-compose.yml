@@ -2,35 +2,42 @@ version: '3.1' # specify docker-compose version
 
 # Define the services/containers to be run
 services:
+  nginx-service:
+    image: nginx:1.17.1-alpine
+    container_name: nginx-service
+    # build: ./nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+    depends_on:
+      - angular
+      - express
+
   mongo-database: # name of the third service
     image: mongo # specify image to build container from
+    container_name: mongo-database
     environment:
       - MONGO_INITDB_DATABASE=angular7crud
     ports:
       - "27017:27017" # specify port forewarding
+    restart: on-failure
     #volumes:
     #  - ./mongo-volume:/data/db
 
-  express: #name of the second service
-    container_name: backendContainer
-    build: api # specify the directory of the Dockerfile
+  express-service: #name of the second service
+    container_name: express-service
+    build: ./api # specify the directory of the Dockerfile
     ports:
       - "3000:3000" #specify ports forewarding
     links:
       - mongo-database
+    restart: on-failure
 
-  angular: # name of the first service
-    container_name: clientContainer
+  angular-service: # name of the first service
+    container_name: angular-service
     build: ./ # specify the directory of the Dockerfile
     ports:
       - "4200:80" # specify port forewarding
-
-  nginx:
-    container_name: nginxContainer
-    build: ./nginx
-    ports:
-      - "80:80"
-    links:
-      - angular
-      - express
+    restart: on-failure
 
