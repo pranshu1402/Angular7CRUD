@@ -11,8 +11,8 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - angular
-      - express
+      - angular-service
+      - express-service
 
   mongo-database: # name of the third service
     image: mongo # specify image to build container from
@@ -30,7 +30,7 @@ services:
     build: ./api # specify the directory of the Dockerfile
     ports:
       - "3000:3000" #specify ports forewarding
-    links:
+    depends_on:
       - mongo-database
     restart: on-failure
 
