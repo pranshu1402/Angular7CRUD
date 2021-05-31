@@ -22,6 +22,6 @@ RUN npm run build
 # Serve the build content using nginx
 FROM nginx:1.17.1-alpine
 COPY --from=build-step /app/dist/webapp /usr/share/nginx/html
-COPY ./nginx/client_nginx.conf /etc/nginx/nginx.conf
+# COPY ./nginx/client_nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80

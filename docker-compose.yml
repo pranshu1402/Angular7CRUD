@@ -1,4 +1,4 @@
-version: '3.1' # specify docker-compose version
+version: "3.1" # specify docker-compose version
 
 # Define the services/containers to be run
 services:
@@ -28,8 +28,6 @@ services:
   express-service: #name of the second service
     container_name: express-service
     build: ./api # specify the directory of the Dockerfile
-    ports:
-      - "3000:3000" #specify ports forewarding
     depends_on:
       - mongo-database
     restart: on-failure
@@ -37,7 +35,4 @@ services:
   angular-service: # name of the first service
     container_name: angular-service
     build: ./ # specify the directory of the Dockerfile
-    ports:
-      - "4200:80" # specify port forewarding
     restart: on-failure
-
