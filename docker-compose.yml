@@ -23,17 +23,11 @@ services:
   angular-service: # name of the first service
     container_name: angular-service
     build: ./ # specify the directory of the Dockerfile
-    restart: on-failure
-
-  nginx-service:
-    #image: meanacr.azurecr.io/nginx:1.17.1-alpine
-    container_name: nginx-service
-    build: ./nginx
+    depends_on:
+      - express-service
     ports:
       - "80:80"
-    depends_on:
-      - angular-service
-      - express-service
+    restart: on-failure
 
 volumes:
   mongo-volume:
