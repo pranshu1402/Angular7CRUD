@@ -38,18 +38,29 @@ pool:
   name: Default   # your self-hosted agent pool (with Docker installed)
 
 steps:
-  - task: DockerCompose@1
-    displayName: 'Build services'
-    inputs:
-      containerregistrytype: 'Other'
-      dockerComposeFile: 'docker-compose.yml'
-      action: 'Build services'
+# - script: |
+#     echo "Logging in to ACR..."
+#     echo "$(ACR_PASSWORD)" | docker login myregistry.azurecr.io -u $(ACR_USERNAME) --password-stdin
+#   displayName: 'Login to ACR'
+# - task: DockerCompose@1
+#   inputs:
+#     containerregistrytype: 'Other'
+#     dockerComposeFile: './docker-compose.yml'
+#     action: 'Run a Docker Compose command'
+#     dockerComposeCommand: 'docker-compose up'
+#     arguments: '-d'
+- task: DockerCompose@1
+  displayName: 'Build services'
+  inputs:
+    containerregistrytype: 'Other'
+    dockerComposeFile: 'docker-compose.yml'
+    action: 'Build services'
 
-  - task: DockerCompose@1
-    displayName: 'Run Docker Compose'
-    inputs:
-      containerregistrytype: 'Other'
-      dockerComposeFile: 'docker-compose.yml'
-      action: 'Run a Docker Compose command'
-      dockerComposeCommand: 'docker-compose up'
-      arguments: '-d'
+- task: DockerCompose@1
+  displayName: 'Run Docker Compose'
+  inputs:
+    containerregistrytype: 'Other'
+    dockerComposeFile: 'docker-compose.yml'
+    action: 'Run a Docker Compose command'
+    dockerComposeCommand: 'docker-compose up'
+    arguments: '-d'
