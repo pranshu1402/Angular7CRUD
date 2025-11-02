@@ -1,0 +1,30 @@
+# Node.js with Angular
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: DockerCompose@1
+  inputs:
+    containerregistrytype: 'Azure Container Registry'
+    dockerComposeFile: './docker-compose.yml'
+    action: 'Run a Docker Compose command'
+    dockerComposeCommand: 'docker-compose up'
+    arguments: '-d'
+# Build a Node.js project that uses Angular.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+# steps:
+# - task: NodeTool@0
+#   inputs:
+#     versionSpec: '20.x'
+#   displayName: 'Install Node.js'
+
+# - script: |
+#     npm install -g @angular/cli
+#     npm install
+#     ng build --prod
+#   displayName: 'npm install and build'
